@@ -1,0 +1,125 @@
+<script>
+    var letter = document.getElementById("letter");
+    var capital = document.getElementById("capital");
+    var number = document.getElementById("number");
+    var length = document.getElementById("length");
+    // When the user starts to type something inside the password field
+    pwd.onkeyup = function () {
+        // Validate lowercase letters
+        var lowerCaseLetters = /[a-z]/g;
+        if (pwd.value.match(lowerCaseLetters)) {
+            letter.classList.remove("invalid");
+            letter.classList.add("valid");
+        } else {
+            letter.classList.remove("valid");
+            letter.classList.add("invalid");
+        }
+
+        // Validate capital letters
+        var upperCaseLetters = /[A-Z]/g;
+        if (pwd.value.match(upperCaseLetters)) {
+            capital.classList.remove("invalid");
+            capital.classList.add("valid");
+        } else {
+            capital.classList.remove("valid");
+            capital.classList.add("invalid");
+        }
+
+        // Validate numbers
+        var numbers = /[0-9]/g;
+        if (pwd.value.match(numbers)) {
+            number.classList.remove("invalid");
+            number.classList.add("valid");
+        } else {
+            number.classList.remove("valid");
+            number.classList.add("invalid");
+        }
+
+        // Validate length
+        if (pwd.value.length >= 8) {
+            length.classList.remove("invalid");
+            length.classList.add("valid");
+        } else {
+            length.classList.remove("valid");
+            length.classList.add("invalid");
+        }
+    }
+
+</script>
+
+<style>
+    .invalid {
+        display: block;
+    }
+
+    .valid {
+        display: none;
+    }
+</style>
+
+<div class=" col-md-6 col-md-offset-3">
+    <div class="panel panel-success">
+        <div class="panel-heading">Register</div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <form ng-submit="submit()" name="register" novalidate>
+
+                    <div class="form-group"
+                         ng-class="{ 'has-error': register.name.$invalid && register.name.$dirty }">
+                        <label for="name">Name:</label> <input type="text" required
+                                                               class="form-control" ng-model="appUser.name" id="name"
+                                                               name="name">
+                    </div>
+
+                    <div class="form-group"
+                         ng-class="{ 'has-error': register.username.$invalid && register.username.$dirty }">
+                        <label for="username">Username:</label> <input type="text"
+                                                                       required class="form-control"
+                                                                       ng-model="appUser.username"
+                                                                       id="username" name="username">
+                    </div>
+
+                    <div class="form-group"
+                         ng-class="{ 'has-error': register.password.$invalid && register.password.$dirty }">
+                        <label for="pwd">Password:</label> <input type="password" required
+                                                                  class="form-control" id="pwd"
+                                                                  ng-model="appUser.password"
+                                                                  name="password">
+                    </div>
+
+                    <div class="form-group"
+                         ng-class="{ 'has-error': register.confirmPassword.$invalid && register.confirmPassword.$dirty }">
+                        <label for="cpwd">Confirm Password:</label> <input type="password"
+                                                                           name="confirmPassword" required
+                                                                           class="form-control" id="cpwd"
+                                                                           ng-model="confirmPassword">
+                    </div>
+
+                    <div class="alert alert-warning margin-top-5"
+                         ng-show="confirmPassword != appUser.password ">Password Not
+                        Matching
+                    </div>
+
+                    <div class="alert alert-warning margin-top-5 valid" id="letter">Password must have at least 1 lowercase letter</div>
+                    <div class="alert alert-warning margin-top-5 valid" id="capital">Password must have at least 1 uppercase letter</div>
+                    <div class="alert alert-warning margin-top-5 valid" id="number">Password must have at least 1 number</div>
+                    <div class="alert alert-warning margin-top-5 valid" id="length">Password must have at has least 8 charactersr</div>
+
+                    <button type="submit" class="btn btn-primary"
+                            ng-disabled="register.$invalid || (confirmPassword != appUser.password)">Register
+                    </button>
+                    <button class="btn btn-default" ui-sref="login">Login</button>
+                    <div class="alert alert-info margin-top-5" ng-show="message">{{message}}</div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--<div id="message">-->
+<!--<h3>Password must contain the following:</h3>-->
+<!--<p id="letter" class="invalid">A <b>lowercase</b> letter</p>-->
+<!--<p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>-->
+<!--<p id="number" class="invalid">A <b>number</b></p>-->
+<!--<p id="length" class="invalid">Minimum <b>8 characters</b></p>-->
+<!--</div>-->
